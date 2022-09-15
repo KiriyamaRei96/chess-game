@@ -14,10 +14,24 @@ function App() {
 
   return (
     <div className="App">
-      <Button onClick={() => dispatch(whileSide())}>white</Button>
-      <Button onClick={() => dispatch(blackSide())}>black</Button>
+      <Button
+        onClick={() => {
+          dispatch(whileSide());
+          dispatch(startGame("white"));
+        }}
+      >
+        white
+      </Button>
+      <Button
+        onClick={() => {
+          dispatch(blackSide());
+          dispatch(startGame("black"));
+        }}
+      >
+        black
+      </Button>
       <Button onClick={() => dispatch(testState())}>test</Button>
-      <Button onClick={() => dispatch(startGame())}>start</Button>
+      {/* <Button onClick={() =>}>start</Button> */}
 
       <Chessbroad />
     </div>

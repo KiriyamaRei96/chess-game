@@ -8,3 +8,4 @@ export const store = configureStore({
   },
 });
 export const broadSelector = (state) => state;
+export const turnSelector = (state) => state.turnReducer;

@@ -7,8 +7,9 @@ export const turnSlice = createSlice({
     playerColor: "",
   },
   reducers: {
-    startGame: (state) => {
-      state.turnColor = "white";
+    startGame: (state, action) => {
+      state.turnColor = action.payload;
+      state.playerColor = action.payload;
     },
   },
 });

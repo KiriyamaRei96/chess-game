@@ -17,7 +17,6 @@ function Box({ className, color, potisons, info, img, onmove }) {
   const dispatch = useDispatch();
 
   const clickHandler = () => {
-    console.log(info.unit);
     switch (info.unit) {
       case "bishop":
         dispatch(
