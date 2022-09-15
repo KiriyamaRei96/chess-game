@@ -277,3 +277,4 @@ export function kingMove(data, state, side) {
 
   return [...moveDiagonal, ...moveCross];
 }
+// quân tốt
