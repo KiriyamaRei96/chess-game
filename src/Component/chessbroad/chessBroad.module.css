@@ -1,0 +1,21 @@
+.chessbroad {
+  width: 80vh;
+  margin: auto;
+  height: 80vh;
+  background: antiquewhite;
+}
+span.Box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+span.Box > img {
+  width: 70%;
+  position: absolute;
+  z-index: 2;
+}
+.Box.whiteBox {
+  color: gray;
+}
