@@ -7,6 +7,7 @@ import {
   rookMove,
   queenMove,
   knightMove,
+  kingMove,
 } from "../../chessLaw/chessmove/chessMove";
 import { useDispatch } from "react-redux";
 
@@ -67,6 +68,20 @@ function Box({ className, color, potisons, info, img, onmove }) {
           })
         );
         break;
+
+      case "king":
+        dispatch(
+          chessMove({
+            turnColor: colorTurn,
+            moves: kingMove(
+              [potisons.collum, potisons.row],
+              state.chessBroad,
+              info.color
+            ),
+          })
+        );
+        break;
+
       default:
         console.log(info.onmove, "error");
         break;

@@ -51,12 +51,13 @@ export const chessSlice = createSlice({
         { color: "black", unit: "paw", firtMove: true, img: blackPaw },
         { color: "black", unit: "paw", firtMove: true, img: blackPaw },
       ];
+
       state.chessBroad[3] = [
         {},
         { color: "white", img: whiteKnight, unit: "knight" },
-        { color: "black", img: blackQueen, unit: "queen" },
+        { color: "black", img: blackKing, unit: "king", firtMove: true },
         { color: "white", img: whiteQueen, unit: "queen" },
-        { color: "black", img: blackQueen, unit: "queen" },
+        {},
         {},
         {},
         {},

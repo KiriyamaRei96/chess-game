@@ -2,6 +2,7 @@ function checkMoves(moves = [], state, side, position, unit) {
   let outPut1 = [...moves[0]];
   let outPut2 = [...moves[1]];
   switch (unit) {
+    case "king":
     case "knight":
       state.forEach((row, id) => {
         row.forEach((box, index) => {
@@ -258,3 +259,21 @@ export function knightMove(data, state, side) {
 }
 // // quân mã
 // quân vua
+export function kingMove(data, state, side) {
+  var xAxis = Number(data[0]);
+  var yAxis = Number(data[1]);
+
+  var diagonal = [
+    [`${xAxis - 1}${yAxis - 1}`, `${xAxis - 1}${yAxis + 1}`],
+    [`${xAxis + 1}${yAxis - 1}`, `${xAxis + 1}${yAxis + 1}`],
+  ];
+  var cross = [
+    [`${xAxis}${yAxis - 1}`, `${xAxis}${yAxis + 1}`],
+    [`${xAxis - 1}${yAxis}`, `${xAxis + 1}${yAxis}`],
+  ];
+
+  var moveDiagonal = checkMoves(diagonal, state, side, data.join(""), "king");
+  var moveCross = checkMoves(cross, state, side, data.join(""), "king");
+
+  return [...moveDiagonal, ...moveCross];
+}
