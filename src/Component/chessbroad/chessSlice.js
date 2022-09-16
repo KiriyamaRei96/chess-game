@@ -111,7 +111,7 @@ export const chessSlice = createSlice({
       ];
       state.chessBroad[3] = [
         {},
-        { color: "black", img: blackKnight, unit: "knight" },
+        {},
         { color: "black", img: blackKing, unit: "king", firtMove: true },
         { color: "white", img: whiteQueen, unit: "queen" },
         {},

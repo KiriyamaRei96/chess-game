@@ -3,6 +3,24 @@ function checkMoves(moves = [], state, side, position, unit) {
   let outPut2 = [...moves[1]];
   switch (unit) {
     case "paw":
+      state.forEach((row, id) => {
+        row.forEach((box, index) => {
+          for (let move of moves[0]) {
+            if (move[0] == id && move[1] == index) {
+              if (box.unit !== undefined) {
+                outPut1.splice(outPut1.indexOf(`${id}${index}`), 2);
+              }
+            }
+          }
+          for (let move of moves[1]) {
+            if (move[0] == id && move[1] == index) {
+              if (box.unit === undefined || box.color === side) {
+                outPut2.splice(outPut2.indexOf(`${id}${index}`), 1);
+              }
+            }
+          }
+        });
+      });
       break;
 
     case "king":
@@ -303,5 +321,5 @@ export function pawMove(data, state, side, firstMove, playerColor) {
     : (attackArray = [`${xAxis + 1}${yAxis - 1}`, `${xAxis + 1}${yAxis + 1}`]);
 
   var move = [moveArray, attackArray];
-  return checkMoves(move, state, side, data.join(""));
+  return checkMoves(move, state, side, data.join(""), "paw");
 }
