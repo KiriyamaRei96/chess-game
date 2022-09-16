@@ -280,7 +280,7 @@ export function knightMove(data, state, side) {
 }
 // // quân mã
 // quân vua
-export function kingMove(data, state, side, firstMove) {
+export function kingMove(data, state, side, firstMove, playerColor) {
   var xAxis = Number(data[0]);
   var yAxis = Number(data[1]);
 
@@ -295,6 +295,51 @@ export function kingMove(data, state, side, firstMove) {
 
   var moveDiagonal = checkMoves(diagonal, state, side, data.join(""), "king");
   var moveCross = checkMoves(cross, state, side, data.join(""), "king");
+
+  if (firstMove && side !== playerColor) {
+    if (
+      state[0][0].firstMove &&
+      state[0].filter((box, id) => {
+        if (id > 0 && id <= 3) {
+          return box.unit === undefined;
+        }
+      }).length === 3
+    ) {
+      moveDiagonal.push([0, 2]);
+    }
+    if (
+      state[0][7].firstMove &&
+      state[0].filter((box, id) => {
+        if (id > 4 && id <= 6) {
+          return box.unit === undefined;
+        }
+      }).length === 2
+    ) {
+      moveDiagonal.push([0, 6]);
+    }
+  }
+  if (firstMove && side == playerColor) {
+    if (
+      state[7][0].firstMove &&
+      state[7].filter((box, id) => {
+        if (id > 0 && id <= 3) {
+          return box.unit === undefined;
+        }
+      }).length === 3
+    ) {
+      moveDiagonal.push([7, 2]);
+    }
+    if (
+      state[7][7].firstMove &&
+      state[7].filter((box, id) => {
+        if (id > 4 && id <= 6) {
+          return box.unit === undefined;
+        }
+      }).length === 2
+    ) {
+      moveDiagonal.push([7, 6]);
+    }
+  }
 
   return [...moveDiagonal, ...moveCross];
 }
@@ -321,5 +366,6 @@ export function pawMove(data, state, side, firstMove, playerColor) {
     : (attackArray = [`${xAxis + 1}${yAxis - 1}`, `${xAxis + 1}${yAxis + 1}`]);
 
   var move = [moveArray, attackArray];
+
   return checkMoves(move, state, side, data.join(""), "paw");
 }

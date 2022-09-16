@@ -1,10 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
-import {
-  whileSide,
-  blackSide,
-  testState,
-} from "./Component/chessbroad/chessSlice";
+import { whileSide, blackSide } from "./Component/chessbroad/chessSlice";
 import { startGame } from "./chessLaw/chessTurn/TurnSlice";
 import { Button } from "antd";
 import "./App.css";
@@ -30,8 +26,6 @@ function App() {
       >
         black
       </Button>
-      <Button onClick={() => dispatch(testState())}>test</Button>
-      {/* <Button onClick={() =>}>start</Button> */}
 
       <Chessbroad />
     </div>
