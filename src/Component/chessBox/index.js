@@ -8,12 +8,14 @@ import {
   queenMove,
   knightMove,
   kingMove,
+  pawMove,
 } from "../../chessLaw/chessmove/chessMove";
 import { useDispatch } from "react-redux";
 
 function Box({ className, color, potisons, info, img, onmove }) {
   const state = useSelector(broadSelector).broadReducer;
   const colorTurn = useSelector(broadSelector).turnReducer.turnColor;
+  const playerColor = useSelector(broadSelector).turnReducer.playerColor;
 
   const dispatch = useDispatch();
 
@@ -76,7 +78,22 @@ function Box({ className, color, potisons, info, img, onmove }) {
             moves: kingMove(
               [potisons.collum, potisons.row],
               state.chessBroad,
-              info.color
+              info.color,
+              info.firstMove
+            ),
+          })
+        );
+        break;
+      case "paw":
+        dispatch(
+          chessMove({
+            turnColor: colorTurn,
+            moves: pawMove(
+              [potisons.collum, potisons.row],
+              state.chessBroad,
+              info.color,
+              info.firstMove,
+              playerColor
             ),
           })
         );

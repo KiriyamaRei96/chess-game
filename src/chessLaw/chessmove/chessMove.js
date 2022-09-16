@@ -2,6 +2,9 @@ function checkMoves(moves = [], state, side, position, unit) {
   let outPut1 = [...moves[0]];
   let outPut2 = [...moves[1]];
   switch (unit) {
+    case "paw":
+      break;
+
     case "king":
     case "knight":
       state.forEach((row, id) => {
@@ -259,7 +262,7 @@ export function knightMove(data, state, side) {
 }
 // // quân mã
 // quân vua
-export function kingMove(data, state, side) {
+export function kingMove(data, state, side, firstMove) {
   var xAxis = Number(data[0]);
   var yAxis = Number(data[1]);
 
@@ -278,3 +281,27 @@ export function kingMove(data, state, side) {
   return [...moveDiagonal, ...moveCross];
 }
 // quân tốt
+export function pawMove(data, state, side, firstMove, playerColor) {
+  var xAxis = Number(data[0]);
+  var yAxis = Number(data[1]);
+  var moveArray = [];
+  var attackArray = [];
+
+  if (firstMove) {
+    side === playerColor
+      ? (moveArray = [`${xAxis - 1}${yAxis}`, `${xAxis - 2}${yAxis}`])
+      : (moveArray = [`${xAxis + 1}${yAxis}`, `${xAxis + 2}${yAxis}`]);
+  }
+  if (!firstMove) {
+    side === playerColor
+      ? (moveArray = [`${xAxis - 1}${yAxis}`])
+      : (moveArray = [`${xAxis + 1}${yAxis}`]);
+  }
+
+  side === playerColor
+    ? (attackArray = [`${xAxis - 1}${yAxis - 1}`, `${xAxis - 1}${yAxis + 1}`])
+    : (attackArray = [`${xAxis + 1}${yAxis - 1}`, `${xAxis + 1}${yAxis + 1}`]);
+
+  var move = [moveArray, attackArray];
+  return checkMoves(move, state, side, data.join(""));
+}
