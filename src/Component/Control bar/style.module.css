@@ -14,6 +14,13 @@
     width: calc(100% / 8) !important;
   }
 }
+.modalContend {
+  white-space: pre-line;
+}
+.btnWrapper {
+  display: flex;
+  justify-content: space-evenly;
+}
 .menuBar {
   display: flex !important;
   flex-direction: column;

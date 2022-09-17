@@ -88,7 +88,7 @@ function CTRL() {
             : "White Win"
         }
         footer={
-          <div>
+          <div className={style.btnWrapper}>
             <Button
               onClick={() => {
                 dispatch(whileSide());
@@ -147,25 +147,43 @@ function CTRL() {
         title={turnNumber === 0 ? "Start Game" : "Restart Game"}
         visible={isModalOpen}
         onCancel={closeModal}
+        footer={
+          <div className={style.btnWrapper}>
+            <Button
+              onClick={() => {
+                dispatch(whileSide());
+                dispatch(startGame("white"));
+                closeModal();
+              }}
+            >
+              white
+            </Button>
+            <Button
+              onClick={() => {
+                dispatch(blackSide());
+                dispatch(startGame("black"));
+                closeModal();
+              }}
+            >
+              black
+            </Button>
+          </div>
+        }
       >
-        <Button
-          onClick={() => {
-            dispatch(whileSide());
-            dispatch(startGame("white"));
-            closeModal();
-          }}
-        >
-          white
-        </Button>
-        <Button
-          onClick={() => {
-            dispatch(blackSide());
-            dispatch(startGame("black"));
-            closeModal();
-          }}
-        >
-          black
-        </Button>
+        {turnNumber === 0 ? (
+          <span className={style.modalContend}>
+            {` Welcome to Redux ChessGame Beta! 
+            This is a simple chess game build from React-js,Redux and ANT Design.
+            Game rule:
+            1.The game AI is not yet finish, so game mode is player 1 vs player 2.Like the old day.
+            2.Select color to start the game.
+            3.The game will end when one side King get capture.
+            4.Have fun. ^^
+            `}
+          </span>
+        ) : (
+          <span> Restart Game </span>
+        )}
       </Modal>
       <Col className={style.menuBar} xl={6} xxl={6} lg={0}>
         <Button type="primary" onClick={() => setIsModalOpen(true)}>
