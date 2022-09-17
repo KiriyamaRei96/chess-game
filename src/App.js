@@ -1,33 +1,13 @@
 import React from "react";
-import { useDispatch } from "react-redux/es/hooks/useDispatch";
-import { whileSide, blackSide } from "./Component/chessbroad/chessSlice";
-import { startGame } from "./chessLaw/chessTurn/TurnSlice";
-import { Button } from "antd";
+
 import "./App.css";
 import Chessbroad from "./Component/chessbroad";
+import CTRL from "./Component/Control bar/CTRL";
 function App() {
-  const dispatch = useDispatch();
-
   return (
     <div className="App">
-      <Button
-        onClick={() => {
-          dispatch(whileSide());
-          dispatch(startGame("white"));
-        }}
-      >
-        white
-      </Button>
-      <Button
-        onClick={() => {
-          dispatch(blackSide());
-          dispatch(startGame("black"));
-        }}
-      >
-        black
-      </Button>
-
       <Chessbroad />
+      <CTRL />
     </div>
   );
 }

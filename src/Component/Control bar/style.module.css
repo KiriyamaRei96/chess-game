@@ -1,0 +1,57 @@
+@media screen and (max-width: 750px) {
+  .menuBar {
+    height: 30% !important;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .menuBar {
+    height: 20%;
+  }
+  .captureGroup {
+    flex-direction: row !important;
+  }
+  .captureUnit {
+    width: calc(100% / 8) !important;
+  }
+}
+.menuBar {
+  display: flex !important;
+  flex-direction: column;
+  border: 1px solid #666;
+}
+.gameInfo span {
+  margin: 0;
+  width: 50%;
+  text-transform: capitalize;
+}
+.captureGroup {
+  display: inherit;
+  flex-direction: column;
+  text-transform: capitalize;
+  flex: 1;
+  background-color: white;
+}
+.captureGroup > div {
+  flex: 1;
+  border: 1px solid #666;
+}
+.promotionUnit,
+.captureUnit {
+  width: calc(100% / 5);
+  height: auto !important;
+  overflow: hidden;
+}
+.promotionUnit img,
+.captureUnit img {
+  width: 100%;
+  height: auto;
+}
+.promotionBox,
+.captureBox {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.promotionBox {
+  justify-content: space-evenly;
+}

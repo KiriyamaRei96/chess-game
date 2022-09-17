@@ -13,7 +13,7 @@ import {
 } from "../../chessLaw/chessmove/chessMove";
 import { useDispatch } from "react-redux";
 import openNotificationWithIcon from "../../funcion/noti";
-
+import style from "../chessbroad/chessBroad.module.css";
 function Box({ className, color, potisons, info, img, onmove }) {
   const state = useSelector(broadSelector).broadReducer;
   const colorTurn = useSelector(broadSelector).turnReducer.turnColor;
@@ -37,8 +37,10 @@ function Box({ className, color, potisons, info, img, onmove }) {
     if (info.unit && info.color !== colorTurn && info.onmove === undefined) {
       openNotificationWithIcon(
         "warning",
-        "Bạn không thể chọn quân cờ đối phương !",
-        "Bạn đang chọn quân cờ của đối phương,hãy chọn quân cờ đúng màu"
+        colorTurn === "white" ? "White turn" : "Black turn",
+        colorTurn === "white"
+          ? "Please chose unit in white color"
+          : "Please chose unit in black color"
       );
     }
 
@@ -160,20 +162,15 @@ function Box({ className, color, potisons, info, img, onmove }) {
   return (
     <Col onClick={clickHandler} span={3}>
       <Tag className={className} color={color}>
-        {`col-${potisons.collum}row-${potisons.row}`}
         {info.unit !== undefined ? <img src={img} alt="chess unit" /> : false}
         {onmove ? (
-          <Tag
+          <div
             style={{
-              position: "absolute",
-              width: "100%",
-              height: "100%",
-              margin: "0",
-              opacity: "0.7",
-              border: "1px black solid",
+              boxShadow: `0px 0px 30px 17px inset ${info.onmove}`,
+              border: `1px solid transparent`,
             }}
-            color={onmove}
-          ></Tag>
+            className={style.moveColor}
+          ></div>
         ) : (
           false
         )}
@@ -182,3 +179,4 @@ function Box({ className, color, potisons, info, img, onmove }) {
   );
 }
 export default Box;
+// box-shadow: inset 0 0 26px 15px lightgreen;

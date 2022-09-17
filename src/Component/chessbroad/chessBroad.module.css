@@ -1,8 +1,17 @@
+@media screen and (max-width: 750px) {
+  .chessbroad {
+    width: 100% !important;
+    height: 100vw !important;
+  }
+}
 .chessbroad {
   width: 80vh;
   margin: auto;
   height: 80vh;
   background: antiquewhite;
+  border: 15px solid transparent;
+  border-image: url(https://www.blogrope.com/wp-content/uploads/2013/06/003-wood-melamine-subttle-pattern-background-pat.jpg)
+    30;
 }
 span.Box {
   width: 100%;
@@ -10,6 +19,9 @@ span.Box {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 1s ease-in;
+
+  cursor: pointer;
 }
 span.Box > img {
   width: 70%;
@@ -18,4 +30,11 @@ span.Box > img {
 }
 .Box.whiteBox {
   color: gray;
+}
+.moveColor {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  box-shadow: none;
 }

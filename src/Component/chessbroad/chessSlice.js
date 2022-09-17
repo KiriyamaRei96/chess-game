@@ -13,6 +13,7 @@ import blackKnight from "../../img/black/knight.png";
 import blackBishop from "../../img/black/bishop.png";
 import blackQueen from "../../img/black/queen.png";
 import blackKing from "../../img/black/king.png";
+import { message } from "antd";
 const chessBroad = [
   [{}, {}, {}, {}, {}, {}, {}, {}],
   [{}, {}, {}, {}, {}, {}, {}, {}],
@@ -32,6 +33,7 @@ export const chessSlice = createSlice({
       black: [],
       white: [],
     },
+    promotion: undefined,
   },
   reducers: {
     whileSide: (state) => {
@@ -40,6 +42,7 @@ export const chessSlice = createSlice({
         black: [],
         white: [],
       };
+      state.chessBroad = [...chessBroad];
 
       state.chessBroad[0] = [
         { color: "black", img: blackRook, unit: "rook", firstMove: true },
@@ -109,10 +112,6 @@ export const chessSlice = createSlice({
           img: blackPaw,
         },
       ];
-      state.chessBroad[2] = chessBroad[2];
-      state.chessBroad[3] = chessBroad[3];
-      state.chessBroad[4] = chessBroad[4];
-      state.chessBroad[5] = chessBroad[5];
 
       state.chessBroad[6] = [
         {
@@ -189,7 +188,7 @@ export const chessSlice = createSlice({
         black: [],
         white: [],
       };
-
+      state.chessBroad = [...chessBroad];
       state.chessBroad[7] = [
         { color: "black", img: blackRook, unit: "rook", firstMove: true },
         { color: "black", img: blackKnight, unit: "knight" },
@@ -258,10 +257,7 @@ export const chessSlice = createSlice({
           img: blackPaw,
         },
       ];
-      state.chessBroad[2] = chessBroad[2];
-      state.chessBroad[3] = chessBroad[3];
-      state.chessBroad[4] = chessBroad[4];
-      state.chessBroad[5] = chessBroad[5];
+
       state.chessBroad[1] = [
         {
           color: "white",
@@ -349,7 +345,7 @@ export const chessSlice = createSlice({
                   box.onmove = "lightgreen";
                 }
                 if (box.color !== undefined) {
-                  box.onmove = "crimson";
+                  box.onmove = "#ff4d4f";
                 }
               }
             });
@@ -374,24 +370,37 @@ export const chessSlice = createSlice({
           case "02":
             state.chessBroad[0][3] = state.chessBroad[0][0];
             state.chessBroad[0][0] = {};
+            message.info("Castling");
             break;
           case "72":
             state.chessBroad[7][3] = state.chessBroad[7][0];
             state.chessBroad[7][0] = {};
+            message.info("Castling");
             break;
           case "06":
             state.chessBroad[0][5] = state.chessBroad[0][7];
             state.chessBroad[0][7] = {};
+            message.info("Castling");
             break;
           case "76":
             state.chessBroad[7][5] = state.chessBroad[7][7];
             state.chessBroad[7][7] = {};
+            message.info("Castling");
             break;
           default:
-            throw new Error("Invalid value");
+            break;
         }
       }
 
+      if (
+        (currentUnit.unit === "paw" && actions.payload.potisons[0] === 0) ||
+        (currentUnit.unit === "paw" && actions.payload.potisons[0] === 7)
+      ) {
+        state.promotion = {
+          potisons: actions.payload.potisons,
+          color: currentUnit.color,
+        };
+      }
       state.chessBroad[actions.payload.potisons[0]][
         actions.payload.potisons[1]
       ] = { ...currentUnit, firstMove: false };
@@ -402,6 +411,13 @@ export const chessSlice = createSlice({
         );
       }
     },
+    setPromotion: (state, action) => {
+      const potisons = action.payload.potisons;
+
+      state.chessBroad[potisons[0]][potisons[1]] = action.payload.unit;
+      state.promotion = undefined;
+    },
   },
 });
-export const { whileSide, blackSide, chessMove, move } = chessSlice.actions;
+export const { whileSide, blackSide, chessMove, move, test, setPromotion } =
+  chessSlice.actions;
