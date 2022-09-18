@@ -411,6 +411,69 @@ export const chessSlice = createSlice({
         );
       }
     },
+
+    AImove: (state, actions) => {
+      const currentUnit = actions.payload.selectedUnit.unit;
+      const currentPosition = actions.payload.selectedUnit.potison;
+
+      const info =
+        current(state).chessBroad[actions.payload.potisons[0]][
+          actions.payload.potisons[1]
+        ];
+
+      state.chessBroad.forEach((row, id) =>
+        row.forEach((box, index) => {
+          box.onmove = undefined;
+        })
+      );
+
+      state.chessBroad[currentPosition[0]][currentPosition[1]] = {};
+
+      if (currentUnit.unit === "king" && currentUnit.firstMove) {
+        switch (actions.payload.potisons.join("")) {
+          case "02":
+            state.chessBroad[0][3] = state.chessBroad[0][0];
+            state.chessBroad[0][0] = {};
+            message.info("Castling");
+            break;
+          case "72":
+            state.chessBroad[7][3] = state.chessBroad[7][0];
+            state.chessBroad[7][0] = {};
+            message.info("Castling");
+            break;
+          case "06":
+            state.chessBroad[0][5] = state.chessBroad[0][7];
+            state.chessBroad[0][7] = {};
+            message.info("Castling");
+            break;
+          case "76":
+            state.chessBroad[7][5] = state.chessBroad[7][7];
+            state.chessBroad[7][7] = {};
+            message.info("Castling");
+            break;
+          default:
+            break;
+        }
+      }
+
+      if (
+        (currentUnit.unit === "paw" && actions.payload.potisons[0] === 0) ||
+        (currentUnit.unit === "paw" && actions.payload.potisons[0] === 7)
+      ) {
+        state.promotion = {
+          potisons: actions.payload.potisons,
+          color: currentUnit.color,
+        };
+      }
+      state.chessBroad[actions.payload.potisons[0]][
+        actions.payload.potisons[1]
+      ] = { ...currentUnit, firstMove: false };
+
+      if (info.unit !== undefined) {
+        state.captureUnit[info.color].push(info);
+      }
+    },
+
     setPromotion: (state, action) => {
       const potisons = action.payload.potisons;
 
@@ -419,5 +482,12 @@ export const chessSlice = createSlice({
     },
   },
 });
-export const { whileSide, blackSide, chessMove, move, test, setPromotion } =
-  chessSlice.actions;
+export const {
+  whileSide,
+  blackSide,
+  chessMove,
+  move,
+  test,
+  setPromotion,
+  AImove,
+} = chessSlice.actions;

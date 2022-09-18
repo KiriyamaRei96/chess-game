@@ -2,14 +2,9 @@ import { Button, Col, message, Modal, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
-import { startGame } from "../../chessLaw/chessTurn/TurnSlice";
+import { startGame, setMode } from "../../chessLaw/chessTurn/TurnSlice";
 import { broadSelector, turnSelector } from "../../store/strore";
-import {
-  blackSide,
-  whileSide,
-  test,
-  setPromotion,
-} from "../chessbroad/chessSlice";
+import { blackSide, whileSide, setPromotion } from "../chessbroad/chessSlice";
 import { v4 as uuid } from "uuid";
 import style from "./style.module.css";
 // white unit
@@ -96,7 +91,7 @@ function CTRL() {
                 setGameEnd(false);
               }}
             >
-              white
+              PvP
             </Button>
             <Button
               onClick={() => {
@@ -105,7 +100,7 @@ function CTRL() {
                 setGameEnd(false);
               }}
             >
-              black
+              Random
             </Button>
           </div>
         }
@@ -153,19 +148,22 @@ function CTRL() {
               onClick={() => {
                 dispatch(whileSide());
                 dispatch(startGame("white"));
+                dispatch(setMode("pvp"));
+
                 closeModal();
               }}
             >
-              white
+              PvP
             </Button>
             <Button
               onClick={() => {
-                dispatch(blackSide());
-                dispatch(startGame("black"));
+                dispatch(whileSide());
+                dispatch(startGame("white"));
+                dispatch(setMode("random"));
                 closeModal();
               }}
             >
-              black
+              Random Bot
             </Button>
           </div>
         }
@@ -175,8 +173,11 @@ function CTRL() {
             {` Welcome to Redux ChessGame Beta! 
             This is a simple chess game build from React-js,Redux and ANT Design.
             Game rule:
-            1.The game AI is not yet finish, so game mode is player 1 vs player 2.Like the old day.
-            2.Select color to start the game.
+            1.Game mode:
+            _Player 1 vs player 2.Like the old day.
+            _The game AI is not yet finish,but it still can play with you in random mode,
+            the AI will pick random valid move from all move possible.
+            2.Select game mode to start the game.
             3.The game will end when one side King get capture.
             4.Have fun. ^^
             `}

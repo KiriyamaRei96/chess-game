@@ -1,6 +1,24 @@
-function checkMoves(moves = [], state, side, position, unit) {
+import { move } from "../../Component/chessbroad/chessSlice";
+
+function checkMoves(moveInput = [], state, side, position, unit) {
+  let moves = [];
+
+  moves[0] = moveInput[0].filter(
+    (move) =>
+      !move.includes("-") &&
+      !moves.includes("NaN") &&
+      move.split("").every((text) => Number(text) < 8)
+  );
+  moves[1] = moveInput[1].filter(
+    (move) =>
+      !move.includes("-") &&
+      !moves.includes("NaN") &&
+      move.split("").every((text) => Number(text) < 8)
+  );
+
   let outPut1 = [...moves[0]];
   let outPut2 = [...moves[1]];
+
   switch (unit) {
     case "paw":
       state.forEach((row, id) => {

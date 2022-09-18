@@ -6,12 +6,16 @@ export const turnSlice = createSlice({
     turn: 0,
     turnColor: "white",
     playerColor: "",
+    mode: "",
   },
   reducers: {
     startGame: (state, action) => {
       state.playerColor = action.payload;
       state.turnColor = "white";
       state.turn = 1;
+    },
+    setMode: (state, action) => {
+      state.mode = action.payload;
     },
     setTurn: (state, action) => {
       action.payload === "white"
@@ -23,4 +27,4 @@ export const turnSlice = createSlice({
     },
   },
 });
-export const { startGame, setTurn, setTurnNumber } = turnSlice.actions;
+export const { startGame, setTurn, setTurnNumber, setMode } = turnSlice.actions;
