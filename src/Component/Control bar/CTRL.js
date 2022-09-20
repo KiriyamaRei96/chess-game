@@ -69,6 +69,7 @@ function CTRL() {
       captureUnit.black.some((unit) => unit.unit === "king") ||
       captureUnit.white.some((unit) => unit.unit === "king")
     ) {
+      dispatch(setPromotion({ potisons: [0, 0], unit: {} }));
       setGameEnd(true);
     }
   }, [captureUnit]);
@@ -88,6 +89,7 @@ function CTRL() {
               onClick={() => {
                 dispatch(whileSide());
                 dispatch(startGame("white"));
+                dispatch(setMode("pvp"));
                 setGameEnd(false);
               }}
             >
@@ -95,8 +97,9 @@ function CTRL() {
             </Button>
             <Button
               onClick={() => {
-                dispatch(blackSide());
-                dispatch(startGame("black"));
+                dispatch(whileSide());
+                dispatch(startGame("white"));
+                dispatch(setMode("random"));
                 setGameEnd(false);
               }}
             >
@@ -107,8 +110,8 @@ function CTRL() {
       >
         <span>
           {captureUnit.white.some((unit) => unit.unit === "king")
-            ? "Congratulations black player! please chose color to replay"
-            : "Congratulations white player! please chose color to replay"}
+            ? "Congratulations black player! please chose game mode to replay"
+            : "Congratulations white player! please chose game mode to replay"}
         </span>
       </Modal>
       <Modal

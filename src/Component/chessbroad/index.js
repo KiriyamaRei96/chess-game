@@ -19,6 +19,8 @@ function Chessbroad() {
   const colorTurn = useSelector(broadSelector).turnReducer.turnColor;
   const playerColor = useSelector(broadSelector).turnReducer.playerColor;
   const gameMode = useSelector(broadSelector).turnReducer.mode;
+  const captureUnit = useSelector(broadSelector).broadReducer.captureUnit;
+
   let turnNumber = useSelector(broadSelector).turnReducer.turn;
 
   useEffect(() => {
@@ -126,8 +128,10 @@ function Chessbroad() {
         }
       }
     });
+    if (captureUnit.black.length <= 15) {
+      dispatch(AImove(AIarr[Math.floor(Math.random() * AIarr.length)]));
+    }
 
-    dispatch(AImove(AIarr[Math.floor(Math.random() * AIarr.length)]));
     dispatch(setTurn(colorTurn));
     dispatch(setTurnNumber((turnNumber += 1)));
   };

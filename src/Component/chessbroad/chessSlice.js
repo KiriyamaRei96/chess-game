@@ -33,7 +33,6 @@ export const chessSlice = createSlice({
       black: [],
       white: [],
     },
-    promotion: undefined,
   },
   reducers: {
     whileSide: (state) => {
@@ -42,6 +41,7 @@ export const chessSlice = createSlice({
         black: [],
         white: [],
       };
+      state.promotion = undefined;
       state.chessBroad = [...chessBroad];
 
       state.chessBroad[0] = [
